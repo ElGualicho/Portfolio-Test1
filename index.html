@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Test 1 — Théâtre d'ombres</title>
+  <meta name="description" content="Prototype de portfolio en théâtre d'ombres japonais avec silhouettes 2D, parallax et ScrollTrigger." />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <section class="hero" id="hero" aria-label="Intro portfolio en théâtre d'ombres">
+      <div class="paper-overlay" aria-hidden="true"></div>
+      <div class="scene" id="scene" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <p class="eyebrow">Portfolio créatif</p>
+        <h1>Thomas<br>Bonnaud</h1>
+        <p class="subtitle">Design graphique · Web · Illustration · Tatouage</p>
+        <a class="scroll-hint" href="#projects" aria-label="Aller à la section projets">Découvrir</a>
+      </div>
+    </section>
+
+    <section class="intro-section" id="projects">
+      <p class="section-kicker">Sélection de projets</p>
+      <h2>Identités visuelles, interfaces et expériences graphiques.</h2>
+      <p>
+        Cette V1 sert à tester la direction artistique : silhouettes noires,
+        profondeur par calques, mouvement au scroll et ambiance papier découpé.
+      </p>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
