@@ -10,67 +10,67 @@ renderer.setPixelRatio(window.devicePixelRatio);
 
 camera.position.z = 5;
 
-// Texture loader
 const textureLoader = new THREE.TextureLoader();
 
-// Assets avec positions X/Y composées + profondeur Z
+// Positions basées sur la composition Figma
 const assets = [
-  // ARRIÈRE-PLAN LOINTAIN
-  { name: 'paper-texture', src: 'assets/paper-texture.png', x: 0, y: 0, z: -10, scale: 2.5, opacity: 0.25, revealStart: 0.0 },
+  // ARRIÈRE-PLAN
+  { name: 'paper-texture', src: 'assets/paper-texture.png', x: 0, y: 0, z: -10, scale: 2.8, opacity: 0.2, revealStart: 0.0 },
   
-  // SOLEIL & CIEL LOIN
-  { name: 'sun', src: 'assets/sun.png', x: 0, y: 0.8, z: -9, scale: 1.2, opacity: 0.8, revealStart: 0.05 },
-  { name: 'clouds-1', src: 'assets/clouds-1.png', x: -1.2, y: 0.5, z: -8.5, scale: 0.9, opacity: 0.75, revealStart: 0.10 },
-  { name: 'clouds-2', src: 'assets/clouds-2.png', x: 1.0, y: 0.7, z: -8.3, scale: 0.85, opacity: 0.78, revealStart: 0.12 },
-  
-  // MONTAGNES & FORÊT
-  { name: 'mountains', src: 'assets/mountains.png', x: 0, y: -0.2, z: -8, scale: 1.5, opacity: 0.8, revealStart: 0.15 },
-  { name: 'forest-distant', src: 'assets/forest-distant.png', x: 0, y: 0, z: -7.8, scale: 1.6, opacity: 0.12, revealStart: 0.18 },
-  { name: 'mountains-distant-2', src: 'assets/mountains-distant-2.png', x: 0, y: -0.3, z: -7.5, scale: 1.4, opacity: 0.7, revealStart: 0.20 },
+  // MONTAGNES & FORÊT LOIN
+  { name: 'mountains', src: 'assets/mountains.png', x: 0, y: -0.3, z: -8.5, scale: 1.6, opacity: 0.75, revealStart: 0.08 },
+  { name: 'forest-distant', src: 'assets/forest-distant.png', x: 0, y: 0.1, z: -8.2, scale: 1.7, opacity: 0.1, revealStart: 0.10 },
+  { name: 'mountains-distant-2', src: 'assets/mountains-distant-2.png', x: 0, y: -0.4, z: -8, scale: 1.5, opacity: 0.65, revealStart: 0.12 },
   
   // BRUME ATMOSPHÉRIQUE
-  { name: 'mist-atmo-1', src: 'assets/mist-atmo-1.png', x: 0, y: 0.2, z: -7, scale: 1.8, opacity: 0.1, revealStart: 0.22 },
+  { name: 'mist-atmo-1', src: 'assets/mist-atmo-1.png', x: 0, y: 0.2, z: -7.5, scale: 1.9, opacity: 0.08, revealStart: 0.14 },
   
-  // DRAGON (ARRIÈRE)
-  { name: 'dragon', src: 'assets/dragon.png', x: 0.3, y: -0.1, z: -6.5, scale: 1.1, opacity: 0.3, revealStart: 0.25 },
+  // SOLEIL (ARRIÈRE)
+  { name: 'sun', src: 'assets/sun.png', x: 0, y: 0.65, z: -7, scale: 1.3, opacity: 0.8, revealStart: 0.16 },
   
-  // ÉLÉMENT PRINCIPAL - SOLEIL ROUGE & PAGODE
-  { name: 'torii', src: 'assets/torii.png', x: 0, y: 0.3, z: -5, scale: 0.9, opacity: 0.95, revealStart: 0.30 },
-  { name: 'temple', src: 'assets/temple-roof.png', x: 0, y: -0.1, z: -4.5, scale: 1.15, opacity: 0.98, revealStart: 0.32 },
+  // DRAGON
+  { name: 'dragon', src: 'assets/dragon.png', x: 0.2, y: 0.1, z: -6.5, scale: 1.1, opacity: 0.28, revealStart: 0.18 },
+  
+  // NUAGES
+  { name: 'clouds-1', src: 'assets/clouds-1.png', x: -1.2, y: 0.4, z: -6, scale: 0.95, opacity: 0.78, revealStart: 0.20 },
+  { name: 'clouds-2', src: 'assets/clouds-2.png', x: 1.2, y: 0.3, z: -5.8, scale: 0.9, opacity: 0.82, revealStart: 0.22 },
+  
+  // ÉLÉMENTS DÉCOR MILIEU
+  { name: 'torii', src: 'assets/torii.png', x: 0, y: 0.25, z: -5, scale: 0.9, opacity: 0.95, revealStart: 0.25 },
+  { name: 'temple', src: 'assets/temple-roof.png', x: 0, y: -0.15, z: -4.5, scale: 1.2, opacity: 0.97, revealStart: 0.28 },
   
   // DÉCOR LATÉRAL
-  { name: 'twisted-tree', src: 'assets/twisted-tree.png', x: -1.5, y: 0.2, z: -4, scale: 0.75, opacity: 0.92, revealStart: 0.35 },
-  { name: 'pagoda', src: 'assets/pagoda.png', x: 1.3, y: 0.4, z: -3.9, scale: 0.8, opacity: 0.88, revealStart: 0.37 },
+  { name: 'twisted-tree', src: 'assets/twisted-tree.png', x: -1.1, y: 0.35, z: -4, scale: 0.8, opacity: 0.9, revealStart: 0.31 },
+  { name: 'pagoda', src: 'assets/pagoda.png', x: 1.15, y: 0.45, z: -3.9, scale: 0.85, opacity: 0.88, revealStart: 0.33 },
   
   // ÉLÉMENTS MOUVANTS
-  { name: 'crane', src: 'assets/crane.png', x: 1.8, y: 0.6, z: -3.5, scale: 0.65, opacity: 0.93, revealStart: 0.40 },
-  { name: 'smoke', src: 'assets/ink-smoke.png', x: 0, y: 0, z: -3, scale: 1.2, opacity: 0.32, revealStart: 0.42 },
+  { name: 'crane', src: 'assets/crane.png', x: 1.0, y: 0.5, z: -3.5, scale: 0.7, opacity: 0.93, revealStart: 0.36 },
+  { name: 'smoke', src: 'assets/ink-smoke.png', x: 0.1, y: 0.05, z: -3, scale: 1.2, opacity: 0.3, revealStart: 0.38 },
   
   // PERSONNAGE CENTRAL
-  { name: 'artist', src: 'assets/artist.png', x: 0, y: -0.5, z: -2.5, scale: 0.6, opacity: 1.0, revealStart: 0.45 },
+  { name: 'artist', src: 'assets/artist.png', x: 0, y: -0.55, z: -2.5, scale: 0.65, opacity: 1.0, revealStart: 0.42 },
   
   // MILIEU
-  { name: 'waves', src: 'assets/waves.png', x: 0, y: -0.8, z: -1.8, scale: 1.3, opacity: 0.85, revealStart: 0.50 },
+  { name: 'waves', src: 'assets/waves.png', x: 0, y: -0.85, z: -1.8, scale: 1.35, opacity: 0.83, revealStart: 0.46 },
   
   // PREMIER PLAN
-  { name: 'rocks-close', src: 'assets/rocks-close.png', x: 0, y: -1.0, z: -1.2, scale: 1.4, opacity: 0.7, revealStart: 0.55 },
-  { name: 'grasses-close', src: 'assets/grasses-close.png', x: -0.3, y: -1.2, z: -0.8, scale: 1.35, opacity: 0.62, revealStart: 0.58 },
+  { name: 'rocks-close', src: 'assets/rocks-close.png', x: 0, y: -1.05, z: -1.2, scale: 1.45, opacity: 0.68, revealStart: 0.50 },
+  { name: 'grasses-close', src: 'assets/grasses-close.png', x: 0, y: -1.25, z: -0.8, scale: 1.4, opacity: 0.6, revealStart: 0.54 },
   
   // TRÈS PROCHE
-  { name: 'branches', src: 'assets/tree-branches.png', x: -1.2, y: 0.5, z: -0.3, scale: 1.1, opacity: 0.95, revealStart: 0.62 },
-  { name: 'bamboo', src: 'assets/bamboo.png', x: 1.1, y: -0.7, z: 0.1, scale: 0.7, opacity: 0.98, revealStart: 0.65 },
-  { name: 'floating-leaves', src: 'assets/floating-leaves.png', x: 0.5, y: 0.3, z: 0.4, scale: 0.95, opacity: 0.55, revealStart: 0.68 },
+  { name: 'branches', src: 'assets/tree-branches.png', x: -1.1, y: 0.45, z: -0.3, scale: 1.15, opacity: 0.94, revealStart: 0.58 },
+  { name: 'bamboo', src: 'assets/bamboo.png', x: 1.05, y: -0.75, z: 0.1, scale: 0.75, opacity: 0.98, revealStart: 0.62 },
+  { name: 'floating-leaves', src: 'assets/floating-leaves.png', x: 0.3, y: 0.35, z: 0.5, scale: 1.0, opacity: 0.5, revealStart: 0.66 },
   
-  // TRANSITIONS FINALES
-  { name: 'torn-paper', src: 'assets/torn-paper.png', x: 0, y: -1.1, z: 1.2, scale: 1.5, opacity: 0.92, revealStart: 0.75 },
-  { name: 'closing-smoke', src: 'assets/closing-smoke.png', x: 0, y: 0.3, z: 1.8, scale: 1.6, opacity: 0.28, revealStart: 0.82 }
+  // TRANSITIONS
+  { name: 'torn-paper', src: 'assets/torn-paper.png', x: 0, y: -1.1, z: 1.3, scale: 1.6, opacity: 0.9, revealStart: 0.75 },
+  { name: 'closing-smoke', src: 'assets/closing-smoke.png', x: 0, y: 0.4, z: 1.9, scale: 1.7, opacity: 0.25, revealStart: 0.83 }
 ];
 
 const planes = [];
 const assetMap = {};
 
-// Create planes for each asset
-assets.forEach((asset, index) => {
+assets.forEach((asset) => {
   textureLoader.load(asset.src, (texture) => {
     const aspect = texture.image.width / texture.image.height;
     const height = asset.scale;
@@ -80,7 +80,7 @@ assets.forEach((asset, index) => {
     const material = new THREE.MeshBasicMaterial({
       map: texture,
       transparent: true,
-      alphaTest: 0.1,
+      alphaTest: 0.05,
       side: THREE.DoubleSide
     });
 
@@ -89,14 +89,11 @@ assets.forEach((asset, index) => {
     plane.userData = {
       revealStart: asset.revealStart,
       targetOpacity: asset.opacity,
-      baseOpacity: 0,
       baseX: asset.x,
       baseY: asset.y,
-      baseZ: asset.z,
-      depth: asset.z
+      baseZ: asset.z
     };
 
-    // Start invisible
     material.opacity = 0;
 
     scene.add(plane);
@@ -105,16 +102,15 @@ assets.forEach((asset, index) => {
   });
 });
 
-// Scroll tracking for reveal
+// Scroll reveal & parallax
 let scrollProgress = 0;
 window.addEventListener('scroll', () => {
   const heroHeight = document.getElementById('hero').offsetHeight;
   scrollProgress = Math.min(window.scrollY / heroHeight, 1);
 
-  // Update reveal for each plane
   planes.forEach((plane) => {
     const revealStart = plane.userData.revealStart;
-    const revealDuration = 0.06;
+    const revealDuration = 0.05;
     const revealEnd = revealStart + revealDuration;
 
     if (scrollProgress >= revealStart && scrollProgress <= revealEnd) {
@@ -127,17 +123,14 @@ window.addEventListener('scroll', () => {
     }
   });
 
-  // Camera movement based on scroll (zoom parallax effect)
-  const moveAmount = scrollProgress * 3;
-  camera.position.z = 5 - moveAmount * 0.8;
-  camera.position.y = moveAmount * 0.3;
+  // Camera zoom parallax
+  const moveAmount = scrollProgress * 3.5;
+  camera.position.z = 5 - moveAmount * 0.9;
+  camera.position.y = moveAmount * 0.4;
 });
 
-// Mouse parallax with depth sensitivity
-let mouseX = 0;
-let mouseY = 0;
-let targetMouseX = 0;
-let targetMouseY = 0;
+// Mouse parallax
+let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
 
 window.addEventListener('mousemove', (e) => {
   targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -148,30 +141,28 @@ window.addEventListener('mousemove', (e) => {
 function animate() {
   requestAnimationFrame(animate);
 
-  // Smooth mouse parallax
   mouseX += (targetMouseX - mouseX) * 0.04;
   mouseY += (targetMouseY - mouseY) * 0.04;
 
-  // Apply mouse parallax to camera - subtle
-  camera.position.x = mouseX * 0.3;
-  camera.position.y += mouseY * 0.2 * 0.01;
+  camera.position.x = mouseX * 0.25;
+  camera.position.y += mouseY * 0.15 * 0.01;
 
-  // Subtle crane animation (flapping)
+  // Crane flight
   const crane = assetMap['crane'];
   if (crane) {
-    crane.position.y = crane.userData.baseY + Math.sin(Date.now() * 0.003) * 0.08;
+    crane.position.y = crane.userData.baseY + Math.sin(Date.now() * 0.003) * 0.1;
   }
 
-  // Subtle smoke animation (drifting)
+  // Smoke drift
   const smoke = assetMap['smoke'];
   if (smoke) {
-    smoke.position.x = smoke.userData.baseX + Math.sin(Date.now() * 0.002) * 0.12;
+    smoke.position.x = smoke.userData.baseX + Math.sin(Date.now() * 0.002) * 0.15;
   }
 
-  // Floating leaves animation
+  // Leaves flutter
   const leaves = assetMap['floating-leaves'];
   if (leaves) {
-    leaves.position.y = leaves.userData.baseY + Math.sin(Date.now() * 0.0025) * 0.15;
+    leaves.position.y = leaves.userData.baseY + Math.sin(Date.now() * 0.0025) * 0.18;
     leaves.rotation.z += 0.0002;
   }
 
@@ -180,7 +171,7 @@ function animate() {
 
 animate();
 
-// Handle resize
+// Resize handler
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
