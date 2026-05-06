@@ -1,5 +1,3 @@
-import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-
 // Scene setup
 const canvas = document.getElementById('scene-canvas');
 const scene = new THREE.Scene();
@@ -127,7 +125,7 @@ function animate() {
 
   // Apply mouse parallax to camera
   camera.position.x = mouseX * 0.5;
-  camera.position.y = mouseY * 0.3;
+  camera.position.y += mouseY * 0.3 * 0.01;
 
   // Subtle crane animation
   const crane = assetMap['crane'];
