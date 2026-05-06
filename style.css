@@ -22,260 +22,21 @@ img { max-width: 100%; display: block; }
 .hero {
   position: relative;
   height: 190vh;
-  overflow: clip;
   background:
     radial-gradient(circle at 50% 36%, rgba(143, 36, 29, 0.30) 0 16%, transparent 28%),
     linear-gradient(180deg, #f1dfbd 0%, #dfc18a 52%, #bf905b 100%);
   isolation: isolate;
 }
 
-.scene {
-  position: sticky;
-  inset: 0;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  perspective: 1200px;
-  z-index: 2;
-}
-
-.paper-overlay {
+#scene-canvas {
   position: fixed;
-  inset: 0;
-  z-index: 80;
-  pointer-events: none;
-  opacity: 0.13;
-  mix-blend-mode: multiply;
-  background-image:
-    radial-gradient(rgba(0, 0, 0, 0.18) 0.7px, transparent 0.7px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.05), transparent 35%, rgba(255, 255, 255, 0.05));
-  background-size: 4px 4px, 180px 100%;
-}
-
-.layer {
-  position: absolute;
-  display: block;
-  user-select: none;
-  pointer-events: none;
-  object-fit: contain;
-  will-change: transform, opacity;
-  transform-origin: center;
-  translate: var(--mx, 0px) var(--my, 0px);
-}
-
-/* === TEXTURE & BG === */
-.paper-texture {
-  z-index: 0;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.34;
-  mix-blend-mode: multiply;
-}
-
-/* === TRÈS LOIN === */
-.sun {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 1;
-  width: min(42vw, 560px);
-  left: 50%;
-  top: 15%;
-  translate: -50% 0;
-  opacity: 0.75;
 }
 
-.mountains {
-  z-index: 2;
-  width: 118vw;
-  left: -9vw;
-  bottom: 8vh;
-  opacity: 0.85;
-}
-
-.forest-distant {
-  z-index: 2;
-  width: 125vw;
-  left: -12.5vw;
-  bottom: 28vh;
-  opacity: 0.15;
-}
-
-.mist-atmo-1 {
-  z-index: 2;
-  width: 130vw;
-  left: -15vw;
-  bottom: 22vh;
-  opacity: 0.12;
-}
-
-.mountains-distant-2 {
-  z-index: 3;
-  width: 122vw;
-  left: -11vw;
-  bottom: 11vh;
-  opacity: 0.78;
-}
-
-/* === MILIEU === */
-.dragon {
-  z-index: 4;
-  width: min(78vw, 1100px);
-  left: 50%;
-  top: 27vh;
-  translate: -50% 0;
-  opacity: 0.35;
-}
-
-.clouds-one {
-  z-index: 5;
-  width: min(42vw, 600px);
-  left: 8vw;
-  top: 13vh;
-  opacity: 0.82;
-}
-
-.clouds-two {
-  z-index: 5;
-  width: min(35vw, 520px);
-  right: 8vw;
-  top: 24vh;
-  opacity: 0.85;
-}
-
-.torii {
-  z-index: 6;
-  width: min(36vw, 520px);
-  left: 57%;
-  bottom: 15vh;
-  translate: -50% 0;
-  opacity: 0.92;
-}
-
-.temple {
-  z-index: 7;
-  width: min(54vw, 760px);
-  left: 50%;
-  bottom: 0;
-  translate: -50% 0;
-  opacity: 0.90;
-}
-
-.twisted-tree {
-  z-index: 6;
-  width: min(28vw, 420px);
-  left: 35%;
-  bottom: 18vh;
-  translate: -50% 0;
-  opacity: 0.88;
-}
-
-.pagoda {
-  z-index: 6;
-  width: min(32vw, 480px);
-  right: 15vw;
-  bottom: 16vh;
-  translate: 50% 0;
-  opacity: 0.85;
-}
-
-/* === PERSONNAGES & MOUVANTS === */
-.crane {
-  z-index: 8;
-  width: min(22vw, 320px);
-  right: 12vw;
-  top: 17vh;
-  opacity: 0.95;
-}
-
-.smoke {
-  z-index: 8;
-  width: 72vw;
-  left: 14vw;
-  bottom: 11vh;
-  opacity: 0.35;
-}
-
-.artist {
-  z-index: 9;
-  width: min(19vw, 260px);
-  left: 45%;
-  bottom: 13vh;
-  translate: -50% 0;
-  opacity: 1;
-}
-
-/* === PREMIER PLAN PROCHE === */
-.waves {
-  z-index: 10;
-  width: 112vw;
-  left: -6vw;
-  bottom: -8vh;
-  opacity: 0.88;
-}
-
-.rocks-close {
-  z-index: 11;
-  width: 120vw;
-  left: -10vw;
-  bottom: -10vh;
-  opacity: 0.72;
-}
-
-.grasses-close {
-  z-index: 12;
-  width: 130vw;
-  left: -15vw;
-  bottom: -20vh;
-  opacity: 0.65;
-}
-
-.bamboo {
-  z-index: 13;
-  width: min(30vw, 430px);
-  right: -4vw;
-  bottom: -6vh;
-  opacity: 0.95;
-}
-
-.branches {
-  z-index: 14;
-  width: min(54vw, 780px);
-  left: -9vw;
-  top: -5vh;
-  opacity: 0.92;
-}
-
-.floating-leaves {
-  z-index: 15;
-  width: min(45vw, 640px);
-  left: 50%;
-  top: 35vh;
-  translate: -50% 0;
-  opacity: 0.52;
-}
-
-/* === TRANSITIONS === */
-.torn-paper {
-  z-index: 26;
-  width: 145vw;
-  height: clamp(110px, 16vh, 220px);
-  left: -22vw;
-  bottom: -1px;
-  object-fit: cover;
-  object-position: center bottom;
-  opacity: 0.95;
-}
-
-.closing-smoke {
-  z-index: 27;
-  width: 160vw;
-  left: -30vw;
-  bottom: -15vh;
-  opacity: 0.32;
-}
-
-/* === HERO CONTENT === */
 .hero-content {
   position: sticky;
   top: 0;
@@ -369,7 +130,6 @@ h1 {
   opacity: 0.75;
 }
 
-/* === RESPONSIVE === */
 @media (max-width: 768px) {
   .hero { height: 175vh; }
 
@@ -377,37 +137,8 @@ h1 {
     justify-content: flex-start;
     padding-top: 18vh;
   }
-
-  .sun { width: 75vw; top: 20%; }
-  .mountains { width: 172vw; left: -36vw; bottom: 10vh; }
-  .forest-distant { width: 180vw; left: -40vw; bottom: 28vh; opacity: 0.12; }
-  .mist-atmo-1 { width: 185vw; left: -42.5vw; bottom: 22vh; opacity: 0.10; }
-  .mountains-distant-2 { width: 175vw; left: -37.5vw; bottom: 12vh; }
-  .dragon { width: 140vw; left: 50%; top: 34vh; opacity: 0.28; }
-  .clouds-one { width: 72vw; left: -8vw; top: 17vh; }
-  .clouds-two { width: 62vw; right: -12vw; top: 30vh; }
-  .torii { width: 72vw; left: 58%; bottom: 16vh; }
-  .temple { width: 112vw; bottom: 3vh; }
-  .twisted-tree { width: 52vw; left: 32%; bottom: 18vh; }
-  .pagoda { width: 60vw; right: 10vw; bottom: 16vh; }
-  .artist { width: 36vw; left: 48%; bottom: 15vh; }
-  .crane { width: 38vw; right: 4vw; top: 36vh; }
-  .smoke { width: 135vw; left: -22vw; }
-  .waves { width: 184vw; left: -42vw; bottom: -4vh; }
-  .rocks-close { width: 210vw; left: -55vw; bottom: -12vh; }
-  .grasses-close { width: 230vw; left: -65vw; bottom: -25vh; opacity: 0.60; }
-  .bamboo { width: 60vw; right: -20vw; }
-  .branches { width: 96vw; left: -30vw; }
-  .floating-leaves { width: 85vw; left: 50%; top: 38vh; }
-  .torn-paper {
-    width: 220vw;
-    height: clamp(120px, 18vh, 240px);
-    left: -60vw;
-  }
-  .closing-smoke { width: 280vw; left: -90vw; bottom: -18vh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .layer { transition: none !important; }
 }
